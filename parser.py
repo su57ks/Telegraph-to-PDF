@@ -1,8 +1,8 @@
+from os import mkdir
 from re import findall
 from requests import get
-from os import mkdir
-from img2pdf import convert
 from shutil import rmtree
+from img2pdf import convert
 
 class Parser():
     def __init__(self, pLink, pName):
@@ -15,7 +15,10 @@ class Parser():
         self.images = []
 
     def download(self):
-        mkdir(self.name)
+        try:
+            mkdir(self.name)
+        except FileExistsError:
+            print(f"Папка {self.name} уже существует, используем её")
         self.page()
         self.parse()
         for i in range(len(self.links)):
@@ -39,7 +42,7 @@ class Parser():
     def parse(self):
         self.links = findall(r'<img src="([^"]+)"', self.data)
         if self.links:
-            print(f"Найдено {len(self.links) + 1} изображений")
+            print(f"Найдено {len(self.links)} изображений")
         else:
             print("Мы не нашли ни одного изображения :(")
 
