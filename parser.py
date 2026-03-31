@@ -1,6 +1,6 @@
 from re import findall
 from requests import get
-from os import mkdir
+from os import mkdir, remove
 from img2pdf import convert
 from shutil import rmtree
 
@@ -23,8 +23,10 @@ class Parser():
             self.image(i)
         with open(f"{self.name}.pdf", "wb") as f:
             f.write(convert(self.images))
-        print(f"Все сохранено в файл {self.name}.pdf")
+        print(f"Сохранено в файл {self.name}.pdf")
+        print("Удаляем файлы кэша")
         rmtree(self.name)
+        print("Кэш успешно удалён")
 
     def page(self):
         response = get(self.link)
@@ -48,12 +50,16 @@ class Parser():
             if response.status_code == 200:
                 with open(f"{self.name}/{i}.jpg", "wb") as file:
                     file.write(response.content)
-                print(f"Картинка успешно скачана и сохранена как '{i}.jpg'")
-                self.images.append(f"{self.name}/{i}.jpg")
+                if not response.content.startswith(b"RIFF"):
+                    print("    Плохой файл, удаляем")
+                    remove(f"{self.name}/{i}.jpg")
+                else:
+                    print(f"    Картинка успешно скачана и сохранена как '{i}.jpg'")
+                    self.images.append(f"{self.name}/{i}.jpg")
             else:
-                print(f"Ошибка при загрузке картинки: {response.status_code}")
-        except:
-            print("Неизвестная ошибка")
+                print(f"    Ошибка при загрузке картинки: {response.status_code}")
+        except Exception as e:
+            print(f"    Ошибка {e}")
 
 link = input("Пожалуйста, введите ссылку на ресурс: ")
 name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
