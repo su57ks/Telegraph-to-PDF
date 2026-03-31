@@ -1,6 +1,7 @@
 from re import findall
 from requests import get
 from os import mkdir
+from img2pdf import convert
 
 class Parser():
     def __init__(self, pLink, pName):
@@ -19,6 +20,9 @@ class Parser():
         for i in range(len(self.links)):
             print(f"Скачивание изображения №{i + 1}")
             self.image(i)
+        with open(f"{self.name}.pdf", "wb") as f:
+            f.write(convert(self.images))
+        print(f"Все сохранено в файл {self.name}.pdf")
 
     def page(self):
         response = get(self.link)
@@ -43,6 +47,7 @@ class Parser():
                 with open(f"{self.name}/{i}.jpg", "wb") as file:
                     file.write(response.content)
                 print(f"Картинка успешно скачана и сохранена как '{i}.jpg'")
+                self.images.append(f"{self.name}/{i}.jpg")
             else:
                 print(f"Ошибка при загрузке картинки: {response.status_code}")
         except:
