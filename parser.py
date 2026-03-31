@@ -2,6 +2,7 @@ from re import findall
 from requests import get
 from os import mkdir
 from img2pdf import convert
+from shutil import rmtree
 
 class Parser():
     def __init__(self, pLink, pName):
@@ -23,6 +24,7 @@ class Parser():
         with open(f"{self.name}.pdf", "wb") as f:
             f.write(convert(self.images))
         print(f"Все сохранено в файл {self.name}.pdf")
+        rmtree(self.name)
 
     def page(self):
         response = get(self.link)
