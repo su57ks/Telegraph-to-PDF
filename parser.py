@@ -64,10 +64,25 @@ class Parser():
         except Exception as e:
             print(f"    Ошибка {e}")
 
-link = input("Пожалуйста, введите ссылку на ресурс: ").strip()
-if link.startswith("https://telegra.ph/"):
-    name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
-    parser = Parser(link, name)
-    parser.download()
-else:
-    print("Неизвестная ссылка. Пожалуйста, проверьте обновления программы и валидность ссылки")
+try:
+    link = input("Пожалуйста, введите ссылку на ресурс: ").strip()
+    if link.startswith("https://telegra.ph/"):
+        name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
+        parser = Parser(link, name)
+        parser.download()
+    else:
+        print("Неизвестная ссылка. Пожалуйста, проверьте обновления программы и валидность ссылки")
+except KeyboardInterrupt:
+    print("\nПрограмма прервана пользователем")
+    print("Выполняем проверку кэша")
+    try:
+        temp = type(name)
+        if name == "":
+            name = link.replace("https://telegra.ph/", "")
+        try:
+            rmtree(name)
+            print("Папка кэша отчищена")
+        except FileNotFoundError:
+            print("Папка кэша не была найдена. Программа завершена")
+    except NameError:
+        print("Папка кэша не была создана. Программа завершена")
