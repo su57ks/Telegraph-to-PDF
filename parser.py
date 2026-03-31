@@ -61,7 +61,10 @@ class Parser():
         except Exception as e:
             print(f"    Ошибка {e}")
 
-link = input("Пожалуйста, введите ссылку на ресурс: ")
-name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
-parser = Parser(link, name)
-parser.download()
+link = input("Пожалуйста, введите ссылку на ресурс: ").strip()
+if link.startswith("https://telegra.ph/"):
+    name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
+    parser = Parser(link, name)
+    parser.download()
+else:
+    print("Неизвестная ссылка. Пожалуйста, проверьте обновления программы и валидность ссылки")
