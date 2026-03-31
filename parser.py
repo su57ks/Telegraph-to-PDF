@@ -7,8 +7,6 @@ from img2pdf import convert
 class Parser():
     def __init__(self, pLink, pName):
         self.link = pLink
-        if not pName:
-            pName = self.link.replace("https://telegra.ph/", "")
         self.name = pName
         self.data = ""
         self.links = []
@@ -68,6 +66,8 @@ try:
     link = input("Пожалуйста, введите ссылку на ресурс: ").strip()
     if link.startswith("https://telegra.ph/"):
         name = input("Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): ")
+        if name == "":
+            name = link.replace("https://telegra.ph/", "")
         parser = Parser(link, name)
         parser.download()
     else:
@@ -77,8 +77,6 @@ except KeyboardInterrupt:
     print("Выполняем проверку кэша")
     try:
         temp = type(name)
-        if name == "":
-            name = link.replace("https://telegra.ph/", "")
         try:
             rmtree(name)
             print("Папка кэша отчищена")
