@@ -1,6 +1,6 @@
 from re import findall
 from requests import get
-from os import mkdir, remove
+from os import mkdir
 from img2pdf import convert
 from shutil import rmtree
 
@@ -48,12 +48,12 @@ class Parser():
         try:
             response = get(link)
             if response.status_code == 200:
-                with open(f"{self.name}/{i}.jpg", "wb") as file:
-                    file.write(response.content)
                 if not response.content.startswith(b"RIFF"):
-                    print("    Плохой файл, удаляем")
-                    remove(f"{self.name}/{i}.jpg")
+                    print("    Неизвестный тип файла")
+
                 else:
+                    with open(f"{self.name}/{i}.jpg", "wb") as file:
+                        file.write(response.content)
                     print(f"    Картинка успешно скачана и сохранена как '{i}.jpg'")
                     self.images.append(f"{self.name}/{i}.jpg")
             else:
