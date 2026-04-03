@@ -1,14 +1,15 @@
-# 📥 Telegram Parser / Парсер Telegram-публикаций
+# 📸 Telegra.ph Image to PDF Downloader
 
 <div align="center">
 
 ![Version](https://img.shields.io/badge/версия-1.0.0-brightgreen.svg?style=for-the-badge&labelColor=black)
-![License](https://img.shields.io/badge/лицензия-MIT-blue.svg?style=for-the-badge&labelColor=black)
+![License](https://img.shields.io/badge/лицензия-GPLv3-blue.svg?style=for-the-badge&labelColor=black)
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB.svg?style=for-the-badge&labelColor=black&logo=python)
-![Requests](https://img.shields.io/badge/зависимости-1-important.svg?style=for-the-badge&labelColor=black)
+![Console](https://img.shields.io/badge/платформа-консоль-black.svg?style=for-the-badge&labelColor=black)
+![Dependencies](https://img.shields.io/badge/зависимости-2-important.svg?style=for-the-badge&labelColor=black)
 ![Human written](https://img.shields.io/badge/написано-человеком-ff69b4.svg?style=for-the-badge&labelColor=black)
 
-**✨ Простой инструмент для скачивания изображений из публикаций Telegram ✨**
+**✨ Загрузка всех изображений из статьи Telegra.ph и объединение их в один PDF ✨**
 
 </div>
 
@@ -24,12 +25,8 @@
 - [🚀 Запуск проекта](#-запуск-проекта)
 - [📝 Описание проекта](#-описание-проекта)
 - [✨ Ключевые возможности](#-ключевые-возможности)
-- [🎯 Зачем здесь класс?](#-зачем-здесь-класс)
-- [⚙️ Как это работает](#️-как-это-работает)
-- [📁 Структура проекта](#-структура-проекта)
+- [🔧 Как это работает](#-как-это-работает)
 - [📊 Достоинства и недостатки](#-достоинства-и-недостатки)
-- [🔮 Планы по развитию](#-планы-по-развитию)
-- [🐛 Известные проблемы](#-известные-проблемы)
 - [📜 Лицензия](#-лицензия)
 - [👨‍💻 Для разработчиков](#-для-разработчиков)
 
@@ -43,12 +40,8 @@
 - [🚀 Project Launch](#-project-launch)
 - [📝 Project Description](#-project-description)
 - [✨ Key Features](#-key-features)
-- [🎯 Why a Class?](#-why-a-class)
-- [⚙️ How It Works](#️-how-it-works)
-- [📁 Project Structure](#-project-structure)
+- [🔧 How It Works](#-how-it-works)
 - [📊 Advantages and Disadvantages](#-advantages-and-disadvantages)
-- [🔮 Development Plans](#-development-plans)
-- [🐛 Known Issues](#-known-issues)
 - [📜 License](#-license)
 - [👨‍💻 For Developers](#-for-developers)
 
@@ -63,33 +56,36 @@
 #### Локальный запуск
 ```bash
 # Клонируйте репозиторий
-git clone https://github.com/ваш-username/telegram-parser.git
+git clone https://github.com/su57ks/Telegraph-to-PDF.git
+cd telegraph-pdf-downloader
 
-# Перейдите в папку проекта
-cd telegram-parser
+# Установите зависимости
+pip install requests img2pdf
 
-# Установите единственную зависимость
-pip install requests
-
-# Запустите парсер
+# Запустите скрипт
 python parser.py
 ```
 
 #### Требования
 - Python 3.x
-- Библиотека: `requests` (единственная зависимость)
+- Библиотеки: `requests`, `img2pdf` (автоматически устанавливаются через pip)
 - Интернет-соединение
+
+> **Примечание:** Скрипт предназначен для работы с публикациями на платформе Telegra.ph. Для других сайтов он не оптимизирован.
 
 ---
 
 ### 📝 Описание проекта
 
-**Telegram Parser** — это простой инструмент для скачивания всех изображений из публикаций на платформе Telegra.ph (и других сайтах с аналогичной структурой). Проект создан в учебных целях для практики работы с:
+**Telegra.ph Image to PDF Downloader** — это простой консольный инструмент, который:
 
-- **Классами в Python** — инкапсуляция логики парсинга
-- **Регулярными выражениями** — поиск ссылок на изображения
-- **HTTP-запросами** — загрузка HTML-страниц и изображений
-- **Работой с файловой системой** — создание папок и сохранение файлов
+- Скачивает HTML-страницу статьи Telegra.ph
+- Находит все теги `<img>` и извлекает ссылки на изображения
+- Загружает каждое изображение (поддерживаются форматы JPEG, PNG, GIF и др.)
+- Объединяет все изображения в один PDF-файл
+- Автоматически очищает временные файлы
+
+Проект написан вручную, без использования искусственного интеллекта. Весь код компактен и легко модифицируется.
 
 ---
 
@@ -97,87 +93,36 @@ python parser.py
 
 | Категория | Функция | Описание |
 |-----------|---------|----------|
-| 🌐 **Парсинг** | Загрузка HTML | Получение исходного кода страницы |
-| | Поиск изображений | Автоматическое извлечение всех ссылок на картинки |
-| | Регулярные выражения | Поиск по шаблону `<img src="...">` |
-| 💾 **Сохранение** | Автоматическое именование | Создание папки с заданным или автоматическим именем |
-| | Пакетная загрузка | Скачивание всех найденных изображений |
-| | Нумерация файлов | Сохранение как `0.jpg`, `1.jpg`, `2.jpg`... |
-| 🛡️ **Надёжность** | Обработка ошибок | Проверка статусов HTTP-ответов |
-| | Информирование | Подробный вывод процесса работы |
+| 🖼 **Загрузка** | Парсинг страницы | Извлекает все изображения из статьи Telegra.ph |
+| | Скачивание изображений | Сохраняет картинки во временную папку |
+| 📄 **Конвертация** | Создание PDF | Объединяет изображения в один PDF-файл |
+| 🧹 **Очистка** | Удаление кэша | Автоматически удаляет временные файлы после завершения |
+| 🛡 **Обработка ошибок** | Прерывание | При Ctrl+C корректно очищает временные файлы |
 
 ---
 
-### 🎯 Зачем здесь класс?
+### 🔧 Как это работает
 
-**Я изучаю Python, поэтому пытаюсь практиковаться в ООП!** 🐍
-
-Использование класса `Parser` в этом проекте — сознательное решение для отработки навыков объектно-ориентированного программирования:
-
-| Преимущество | Как это реализовано |
-|--------------|---------------------|
-| **Инкапсуляция** | Все данные (ссылка, имя папки, HTML, списки) хранятся внутри объекта |
-| **Модульность** | Каждый метод отвечает за одну задачу: `page()`, `parse()`, `image()` |
-| **Переиспользование** | Можно создать несколько парсеров для разных ссылок без конфликтов |
-| **Расширяемость** | Легко добавить новые форматы (PDF, видео) через наследование |
-| **Читаемость** | Код организован логически, легко понять поток работы |
-
-**Без класса** этот же код можно было бы написать как набор функций и глобальных переменных, но класс позволяет:
-- Хранить состояние между вызовами методов
-- Легко передавать объект в другие функции
-- Понять концепцию `self` и работы с атрибутами экземпляра
-
-Это **учебный проект**, поэтому здесь есть то, что я хочу изучить и закрепить на практике.
-
----
-
-### ⚙️ Как это работает
-
-```
-1. Пользователь вводит ссылку на публикацию
-                ↓
-2. Создаётся объект Parser(link, folder_name)
-                ↓
-3. Вызывается метод download()
-                ↓
-4. Создаётся папка для сохранения
-                ↓
-5. page() — загружает HTML страницы
-                ↓
-6. parse() — ищет все ссылки на изображения
-                ↓
-7. image(i) — скачивает каждое изображение по очереди
-                ↓
-8. Готово! Все картинки сохранены в папку
-```
+1. Пользователь вводит ссылку на статью Telegra.ph (например, `https://telegra.ph/Название-статьи-01-01`)
+2. Скрипт проверяет, что ссылка принадлежит домену `telegra.ph`
+3. Загружается HTML-страница
+4. С помощью регулярного выражения извлекаются все значения атрибутов `src` тегов `<img>`
+5. Для каждой найденной ссылки скачивается изображение и сохраняется во временную папку с именем папки, указанным пользователем (или автоматически сгенерированным из названия статьи)
+6. Все сохранённые изображения передаются в библиотеку `img2pdf`, которая создаёт PDF-файл
+7. Временная папка удаляется
 
 #### Пример работы
-
-```python
-parser = Parser("https://telegra.ph/Пример-публикации-01-01", "my_images")
-parser.download()
-
-# Вывод:
-# HTML страница успешно скачана
-# Найдено 5 изображений
-# Скачивание изображения №1
-# Картинка успешно скачана и сохранена как '0.jpg'
-# ...
 ```
-
----
-
-### 📁 Структура проекта
-
-```
-📦 telegram-parser
-├── 📄 parser.py          # Основной файл парсера
-├── 📄 README.md          # Документация
-├── 📄 DEVELOPER.md       # Техническая документация
-└── 📁 my_images/         # Папка с загруженными изображениями (создаётся при запуске)
-    ├── 0.jpg
-    ├── 1.jpg
-    └── ...
+Пожалуйста, введите ссылку на ресурс: https://telegra.ph/Пример-статьи-01-01
+Пожалуйста, введите имя для папки сохранения (Enter для автоматического названия): моя_статья
+HTML страница успешно скачана
+Найдено 5 изображений
+Скачивание изображения №1
+    Картинка успешно скачана и сохранена как '0.jpg'
+...
+Сохранено в файл моя_статья.pdf
+Удаляем файлы кэша
+Кэш успешно удалён
 ```
 
 ---
@@ -185,79 +130,93 @@ parser.download()
 ### 📊 Достоинства и недостатки
 
 #### ✅ Достоинства
-- **✍️ Учебный характер** — код написан для практики, понятен начинающим
-- **📦 Минимум зависимостей** — всего **1** библиотека (`requests`)
-- **🧩 Модульная структура** — класс разбит на логические методы
-- **🛡️ Простая обработка ошибок** — проверка статусов HTTP
-- **📁 Автоматическое именование** — не нужно придумывать имена файлам
-- **🔧 Расширяемость** — легко добавить поддержку других форматов
+- **✍️ Написано человеком** — код прозрачен и легко читается
+- **📦 Минимум зависимостей** — только две библиотеки: `requests` и `img2pdf`
+- **🖼 Поддержка любых форматов** — скачивает любые изображения, доступные по ссылкам
+- **🧹 Автоочистка** — не оставляет мусора на диске
+- **🛡 Обработка прерывания** — корректно завершает работу при Ctrl+C
 
 #### ❌ Недостатки
-- **🎯 Узкая специализация** — работает только с тегом `<img>` в HTML
-- **🖼️ Только JPG** — все изображения сохраняются с расширением `.jpg` (даже если оригинал PNG)
-- **🐌 Последовательная загрузка** — изображения скачиваются по одному (можно ускорить через threading)
-- **🔍 Примитивный парсинг** — используется регулярное выражение вместо полноценного HTML-парсера (BeautifulSoup)
-- **🚫 Нет обработки относительных ссылок** — если ссылки не полные, могут не загрузиться
-
----
-
-### 🔮 Планы по развитию
-
-- [ ] **Поддержка BeautifulSoup** — более надёжный парсинг HTML
-- [ ] **Многопоточная загрузка** — ускорение скачивания через `threading`
-- [ ] **Определение формата** — сохранение с правильным расширением (jpg/png/webp)
-- [ ] **Прогресс-бар** — визуальный индикатор загрузки
-- [ ] **Обработка относительных ссылок** — преобразование в абсолютные
-- [ ] **Поддержка аргументов командной строки** — запуск без интерактивного ввода
-- [ ] **Сохранение в подпапки** — структурирование по типам контента
-- [ ] **Логирование** — запись процесса в файл для отладки
-
----
-
-### 🐛 Известные проблемы
-
-| Проблема | Описание | Статус |
-|----------|----------|--------|
-| Неверное расширение | Все файлы сохраняются как `.jpg`, даже если оригинал PNG | Будет исправлено |
-| Сайты с защитой | Некоторые ресурсы блокируют парсеры (403 Forbidden) | Требуется User-Agent |
-| Относительные ссылки | Ссылки вида `/image.jpg` не загружаются | Требуется нормализация |
-| Нет таймаутов | При медленном интернете может зависнуть | Добавить timeout |
+- **🎯 Ориентирован только на Telegra.ph** — не работает с другими сайтами без доработки
+- **🐌 Нет обработки динамического контента** — не поддерживает JavaScript-рендеринг
+- **📄 Простая проверка формата** — проверяет только начало файла на `RIFF` (WebP), остальные форматы пропускает (это можно улучшить)
 
 ---
 
 ### 📜 Лицензия
 
-Проект распространяется под лицензией **MIT**.
+Проект распространяется под лицензией **GNU General Public License v3 (GPLv3)**.
 
 **Основные положения:**
 - ✅ Свободное использование и распространение
+- ✅ Доступ к исходному коду
 - ✅ Модификация и улучшение
-- ✅ Использование в коммерческих проектах
-- ❌ Нет гарантий и ответственности
+- ❌ Закрытие исходного кода (производные работы также должны быть открыты)
+- ❌ Использование проприетарных модулей без открытия кода
+
+Полный текст лицензии доступен в файле [LICENSE](LICENSE) или на официальном сайте: https://www.gnu.org/licenses/gpl-3.0.html
 
 ---
 
 ### 👨‍💻 Для разработчиков
 
-Вся техническая документация, детальное описание методов, планы по расширению и разбор кода находится в отдельном файле:
+#### Структура кода
 
-➡️ **[DEVELOPER.md](DEVELOPER.md)** — для разработчиков и тех, кто хочет разобраться в устройстве проекта
+Класс `Parser` содержит следующие методы:
 
-Там вы найдёте:
-- Полное описание всех методов класса `Parser`
-- Детальный разбор регулярного выражения для поиска изображений
-- Пошаговое объяснение логики работы
-- Примеры расширения функциональности
+| Метод | Описание |
+|-------|----------|
+| `__init__(self, pLink, pName)` | Инициализация: сохраняет ссылку, имя папки, создаёт пустые списки |
+| `download(self)` | Главный метод: создаёт папку, вызывает page(), parse(), скачивает изображения, создаёт PDF, удаляет папку |
+| `page(self)` | Загружает HTML-страницу по ссылке, сохраняет в self.data |
+| `parse(self)` | Парсит self.data с помощью регулярного выражения, находит все img src |
+| `image(self, i)` | Скачивает изображение по ссылке self.links[i], сохраняет в папку, добавляет путь в self.images |
+
+#### Рекомендации по добавлению лицензионного заголовка
+
+Рекомендуется добавить в начало файла `parser.py` следующий заголовок:
+
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Telegra.ph Image to PDF Downloader
+# Copyright (C) 2024  [Ваше имя или организация]
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from os import mkdir
+# ... остальной код
+```
+
+#### Возможные улучшения
+- Добавить поддержку других сайтов через конфигурацию
+- Улучшить определение формата изображений (использовать `imghdr` или `python-magic`)
+- Добавить прогресс-бар для загрузки
+- Реализовать выбор страниц для PDF (если нужно не всё)
+- Добавить возможность указывать имя выходного PDF
+- Создать файл `LICENSE` с полным текстом GPLv3
 
 ---
 
 <div align="center">
 
-**Сделано в учебных целях для изучения Python и ООП** 🐍
+**Сделано с душой для тех, кто сохраняет любимые статьи** 💗
 
-*Если вам помог этот проект или вы нашли ошибку — создайте Issue на GitHub!*
+*Если вам понравился проект — поставьте звезду на GitHub! ⭐*
 
-[⬆ Наверх](#-telegram-parser--парсер-telegram-публикаций)
+[⬆ Наверх](#-telegraph-image-to-pdf-downloader)
 
 </div>
 
@@ -270,33 +229,36 @@ parser.download()
 #### Local launch
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/telegram-parser.git
+git clone https://github.com/your-repo/telegraph-pdf-downloader.git
+cd telegraph-pdf-downloader
 
-# Go to the project folder
-cd telegram-parser
+# Install dependencies
+pip install requests img2pdf
 
-# Install the only dependency
-pip install requests
-
-# Run the parser
+# Run the script
 python parser.py
 ```
 
 #### Requirements
 - Python 3.x
-- Library: `requests` (only dependency)
+- Libraries: `requests`, `img2pdf` (installed automatically via pip)
 - Internet connection
+
+> **Note:** The script is designed to work with Telegra.ph publications. It is not optimized for other sites.
 
 ---
 
 ### 📝 Project Description
 
-**Telegram Parser** is a simple tool for downloading all images from publications on Telegra.ph (and similar websites). The project was created for educational purposes to practice:
+**Telegra.ph Image to PDF Downloader** is a simple console tool that:
 
-- **Classes in Python** — encapsulating parsing logic
-- **Regular expressions** — finding image links
-- **HTTP requests** — downloading HTML pages and images
-- **File system operations** — creating folders and saving files
+- Downloads the HTML page of a Telegra.ph article
+- Finds all `<img>` tags and extracts image links
+- Downloads each image (supports JPEG, PNG, GIF, etc.)
+- Combines all images into a single PDF file
+- Automatically cleans up temporary files
+
+The project is hand-written, without using artificial intelligence. The code is compact and easy to modify.
 
 ---
 
@@ -304,68 +266,36 @@ python parser.py
 
 | Category | Feature | Description |
 |----------|---------|-------------|
-| 🌐 **Parsing** | HTML download | Fetches page source code |
-| | Image search | Automatically extracts all image links |
-| | Regular expressions | Pattern matching `<img src="...">` |
-| 💾 **Saving** | Automatic naming | Creates folder with specified or auto name |
-| | Batch download | Downloads all found images |
-| | File numbering | Saves as `0.jpg`, `1.jpg`, `2.jpg`... |
-| 🛡️ **Reliability** | Error handling | Checks HTTP response statuses |
-| | User feedback | Detailed process output |
+| 🖼 **Download** | Page parsing | Extracts all images from a Telegra.ph article |
+| | Image downloading | Saves pictures to a temporary folder |
+| 📄 **Conversion** | PDF creation | Combines images into one PDF file |
+| 🧹 **Cleanup** | Cache removal | Automatically deletes temporary files after completion |
+| 🛡 **Error handling** | Interruption | On Ctrl+C, correctly cleans up temporary files |
 
 ---
 
-### 🎯 Why a Class?
+### 🔧 How It Works
 
-**I'm learning Python, so I'm practicing OOP!** 🐍
+1. User enters a Telegra.ph article link (e.g., `https://telegra.ph/Article-Title-01-01`)
+2. The script checks that the link belongs to the `telegra.ph` domain
+3. The HTML page is downloaded
+4. Using a regular expression, all `src` attribute values of `<img>` tags are extracted
+5. For each found link, the image is downloaded and saved to a temporary folder named by the user (or auto-generated from the article title)
+6. All saved images are passed to the `img2pdf` library, which creates a PDF file
+7. The temporary folder is deleted
 
-Using the `Parser` class is a deliberate choice to practice object-oriented programming:
-
-| Advantage | Implementation |
-|-----------|----------------|
-| **Encapsulation** | All data stored within the object instance |
-| **Modularity** | Each method handles one task |
-| **Reusability** | Create multiple parsers without conflicts |
-| **Extensibility** | Easy to add new formats via inheritance |
-| **Readability** | Logically organized code |
-
-This is a **learning project**, so it includes concepts I want to study and practice.
-
----
-
-### ⚙️ How It Works
-
+#### Example Run
 ```
-1. User enters publication link
-                ↓
-2. Parser object created
-                ↓
-3. download() method called
-                ↓
-4. Folder created for saving
-                ↓
-5. page() — downloads HTML
-                ↓
-6. parse() — finds all image links
-                ↓
-7. image(i) — downloads each image
-                ↓
-8. Done! All images saved
-```
-
----
-
-### 📁 Project Structure
-
-```
-📦 telegram-parser
-├── 📄 parser.py          # Main parser file
-├── 📄 README.md          # Documentation
-├── 📄 DEVELOPER.md       # Technical documentation
-└── 📁 my_images/         # Downloaded images folder (created on run)
-    ├── 0.jpg
-    ├── 1.jpg
-    └── ...
+Please enter the resource link: https://telegra.ph/Example-Article-01-01
+Please enter a folder name (Enter for auto): my_article
+HTML page successfully downloaded
+Found 5 images
+Downloading image #1
+    Image successfully downloaded and saved as '0.jpg'
+...
+Saved to file my_article.pdf
+Deleting cache files
+Cache successfully deleted
 ```
 
 ---
@@ -373,77 +303,93 @@ This is a **learning project**, so it includes concepts I want to study and prac
 ### 📊 Advantages and Disadvantages
 
 #### ✅ Advantages
-- **✍️ Educational** — code written for learning, beginner-friendly
-- **📦 Minimal dependencies** — only **1** library
-- **🧩 Modular structure** — class broken into logical methods
-- **🛡️ Simple error handling** — HTTP status checks
-- **📁 Auto-naming** — no need to invent filenames
-- **🔧 Extensible** — easy to add other formats
+- **✍️ Human-written** — code is transparent and easy to read
+- **📦 Minimal dependencies** — only two libraries: `requests` and `img2pdf`
+- **🖼 Any format support** — downloads any images available via links
+- **🧹 Auto-cleanup** — leaves no garbage on disk
+- **🛡 Interruption handling** — correctly exits on Ctrl+C
 
 #### ❌ Disadvantages
-- **🎯 Narrow specialization** — only works with `<img>` tags
-- **🖼️ JPG only** — all images saved with `.jpg` extension
-- **🐌 Sequential downloading** — images downloaded one by one
-- **🔍 Primitive parsing** — regex instead of proper HTML parser
-- **🚫 No relative URL handling** — relative links may fail
-
----
-
-### 🔮 Development Plans
-
-- [ ] **BeautifulSoup support** — more reliable HTML parsing
-- [ ] **Multi-threaded download** — speed up via `threading`
-- [ ] **Format detection** — save with correct extension
-- [ ] **Progress bar** — visual download indicator
-- [ ] **Relative URL handling** — convert to absolute URLs
-- [ ] **Command line arguments** — run without interactive input
-- [ ] **Logging** — record process for debugging
-
----
-
-### 🐛 Known Issues
-
-| Issue | Description | Status |
-|-------|-------------|--------|
-| Wrong extension | All files saved as `.jpg`, even PNG originals | To be fixed |
-| Protected sites | Some resources block parsers (403) | Need User-Agent |
-| Relative URLs | Links like `/image.jpg` fail | Need normalization |
-| No timeouts | May hang on slow connection | Add timeout |
+- **🎯 Only for Telegra.ph** — does not work with other sites without modification
+- **🐌 No dynamic content handling** — does not support JavaScript rendering
+- **📄 Simple format check** — only checks the file header for `RIFF` (WebP), other formats are skipped (can be improved)
 
 ---
 
 ### 📜 License
 
-This project is licensed under the **MIT License**.
+This project is distributed under the **GNU General Public License v3 (GPLv3)**.
 
 **Key provisions:**
 - ✅ Free use and distribution
+- ✅ Access to source code
 - ✅ Modification and improvement
-- ✅ Commercial use allowed
-- ❌ No warranty or liability
+- ❌ Closing the source code (derivative works must also be open source)
+- ❌ Use of proprietary modules without opening the code
+
+The full license text is available in the [LICENSE](LICENSE) file or on the official website: https://www.gnu.org/licenses/gpl-3.0.html
 
 ---
 
 ### 👨‍💻 For Developers
 
-All technical documentation, detailed method descriptions, and code analysis are in a separate file:
+#### Code Structure
 
-➡️ **[DEVELOPER.md](DEVELOPER.md)** — for developers and those who want to understand the project
+The `Parser` class contains the following methods:
 
-There you will find:
-- Complete description of all `Parser` class methods
-- Detailed regex explanation for image search
-- Step-by-step logic explanation
-- Examples of extending functionality
+| Method | Description |
+|--------|-------------|
+| `__init__(self, pLink, pName)` | Initialization: saves the link, folder name, creates empty lists |
+| `download(self)` | Main method: creates folder, calls page(), parse(), downloads images, creates PDF, deletes folder |
+| `page(self)` | Downloads the HTML page from the link, saves to self.data |
+| `parse(self)` | Parses self.data with a regular expression, finds all img src |
+| `image(self, i)` | Downloads the image from self.links[i], saves to folder, adds path to self.images |
+
+#### Recommendation for Adding License Header
+
+It is recommended to add the following header to the beginning of the `parser.py` file:
+
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Telegra.ph Image to PDF Downloader
+# Copyright (C) 2024  [Your Name or Organization]
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from os import mkdir
+# ... rest of the code
+```
+
+#### Possible Improvements
+- Add support for other sites via configuration
+- Improve image format detection (use `imghdr` or `python-magic`)
+- Add a progress bar for downloads
+- Implement page selection for PDF (if not all are needed)
+- Add the ability to specify the output PDF name
+- Create a `LICENSE` file with the full GPLv3 text
 
 ---
 
 <div align="center">
 
-**Made for learning Python and OOP** 🐍
+**Made with soul for those who save favorite articles** 💗
 
-*If this project helped you or you found a bug — create an Issue on GitHub!*
+*If you like the project — give it a star on GitHub! ⭐*
 
-[⬆ Back to top](#-telegram-parser--парсер-telegram-публикаций)
+[⬆ Back to top](#-telegraph-image-to-pdf-downloader)
 
 </div>
+```
