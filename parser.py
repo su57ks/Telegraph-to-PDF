@@ -49,7 +49,7 @@ class Parser():
         try:
             response = get(link)
             if response.status_code == 200:
-                if not response.content.startswith(b"RIFF"):
+                if not self.verify(response.content):
                     print("    Неизвестный тип файла")
 
                 else:
@@ -61,6 +61,25 @@ class Parser():
                 print(f"    Ошибка при загрузке картинки: {response.status_code}")
         except Exception as e:
             print(f"    Ошибка {e}")
+
+    def verify(self, image):
+        imgs = [
+        b'\xff\xd8',          
+        b'\x89PNG\r\n\x1a\n',
+        b'GIF87a',          
+        b'GIF89a',            
+        b'BM',          
+        b'RIFF',           
+        b'II*\x00',          
+        b'MM\x00*',           
+        b'8BPS\x00\x01',      
+        b'\x00\x00\x01\x00',  
+        b'\x00\x00\x02\x00',   
+        ]
+        for img in imgs:
+            if image.startswith(img):
+                return True
+        return False
 
 try:
     link = input("Пожалуйста, введите ссылку на ресурс: ").strip()
